@@ -1,0 +1,21 @@
+{
+  "addons": [
+    {
+      "name": "Ruster AI Provider",
+      "type": "ai",
+      "version": "1.0.0",
+      "updated": "2026-05-28",
+      "description": "https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/README.md",
+      "githubUrl": "https://github.com/hohofught/ruster-ai-provider",
+      "downloadUrl": "https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/Addon_AI_Ruster.js",
+      "minAppVersion": "4.0.0",
+      "tags": [
+        "ivLyrics",
+        "AI Provider",
+        "Ruster",
+        "OpenAI Compatible",
+        "Local Proxy"
+      ]
+    }
+  ]
+}
