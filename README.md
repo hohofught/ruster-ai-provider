@@ -45,15 +45,17 @@ PowerShell에서 raw GitHub 스크립트를 바로 실행합니다.
 irm https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/install.ps1 | iex
 ```
 
-ivLyrics 앱 경로를 직접 지정해야 하면 스크립트를 임시 파일로 내려받아 실행합니다.
+스크립트는 addon 설치 후 ruster backend가 없으면 ruster portable을 다운로드할지 묻습니다. 동의하면 최신 release의 portable zip을 받아 `%LOCALAPPDATA%\ruster`에 풉니다.
+
+ivLyrics 앱 경로를 직접 지정하거나 ruster 다운로드를 강제하려면 스크립트를 임시 파일로 내려받아 실행합니다.
 
 ```powershell
 $script = Join-Path $env:TEMP "install-ruster-ai-provider.ps1"
 irm https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/install.ps1 -OutFile $script
-powershell -NoProfile -ExecutionPolicy Bypass -File $script -AppDir "$env:APPDATA\spicetify\CustomApps\ivLyrics"
+powershell -NoProfile -ExecutionPolicy Bypass -File $script -AppDir "$env:APPDATA\spicetify\CustomApps\ivLyrics" -DownloadRuster
 ```
 
-설치 스크립트는 `Addon_AI_Ruster.js`를 ivLyrics 앱 폴더로 복사하고, ivLyrics `manifest.json`의 `subfiles_extension`에 등록합니다.
+설치 스크립트는 `Addon_AI_Ruster.js`를 ivLyrics 앱 폴더로 복사하고, ivLyrics `manifest.json`의 `subfiles_extension`에 등록합니다. ruster를 다운로드한 경우 실행 명령도 출력합니다.
 
 제거:
 
@@ -118,15 +120,17 @@ Run the raw GitHub install script from PowerShell:
 irm https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/install.ps1 | iex
 ```
 
-If you need to pass the ivLyrics app directory explicitly, download the script to a temporary file first:
+After installing the addon, the script asks whether to download ruster portable if the ruster backend is not found. If accepted, it downloads the latest portable release into `%LOCALAPPDATA%\ruster`.
+
+If you need to pass the ivLyrics app directory explicitly or force the ruster download, download the script to a temporary file first:
 
 ```powershell
 $script = Join-Path $env:TEMP "install-ruster-ai-provider.ps1"
 irm https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/install.ps1 -OutFile $script
-powershell -NoProfile -ExecutionPolicy Bypass -File $script -AppDir "$env:APPDATA\spicetify\CustomApps\ivLyrics"
+powershell -NoProfile -ExecutionPolicy Bypass -File $script -AppDir "$env:APPDATA\spicetify\CustomApps\ivLyrics" -DownloadRuster
 ```
 
-The installer copies `Addon_AI_Ruster.js` into the ivLyrics app directory and adds it to `subfiles_extension` in ivLyrics `manifest.json`.
+The installer copies `Addon_AI_Ruster.js` into the ivLyrics app directory and adds it to `subfiles_extension` in ivLyrics `manifest.json`. If ruster is downloaded, the script also prints the command to run it.
 
 To remove it:
 
