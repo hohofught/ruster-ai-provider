@@ -1,8 +1,81 @@
 # Ruster AI Provider for ivLyrics
 
+## 한국어
+
+이 저장소는 로컬 `ruster` 프록시를 ivLyrics AI Provider로 연결하는 addon입니다.
+
+addon은 ivLyrics에 `Ruster AI Provider`를 등록하고, ruster의 OpenAI 호환 API를 호출합니다.
+
+- Base URL: `http://localhost:5000/v1`
+- Chat endpoint: `/chat/completions`
+- Models endpoint: `/models`
+- 기본 API Key: `localhost`
+
+지원 기능:
+
+- 가사 번역
+- 메타데이터 번역
+- TMI 생성
+- 학습 모드 생성
+- 글자 발음 생성
+
+### 요구 사항
+
+- ivLyrics 4.0.0 이상
+- HTTP 서버가 켜진 상태로 실행 중인 ruster
+- 기본 ruster 주소: `http://localhost:5000/v1`
+
+### ivLyrics 마켓플레이스
+
+ivLyrics 마켓플레이스는 `ivlyrics-addon` topic이 붙은 공개 GitHub 저장소를 검색하고, 루트의 `manifest.json`을 읽습니다.
+
+이 저장소는 해당 규격에 맞춰 구성되어 있습니다.
+
+- 루트 `manifest.json`
+- `addons[0].type`: `ai`
+- `downloadUrl`: `Addon_AI_Ruster.js` raw URL
+
+GitHub 인덱싱 후 ivLyrics 마켓플레이스에서 `Ruster AI Provider`를 검색해 설치하면 됩니다.
+
+### 수동 설치
+
+이 저장소 폴더에서 PowerShell을 실행합니다.
+
+```powershell
+.\install.ps1
+```
+
+ivLyrics 앱 경로를 직접 지정할 수도 있습니다.
+
+```powershell
+.\install.ps1 -AppDir "$env:APPDATA\spicetify\CustomApps\ivLyrics"
+```
+
+설치 스크립트는 `Addon_AI_Ruster.js`를 ivLyrics 앱 폴더로 복사하고, ivLyrics `manifest.json`의 `subfiles_extension`에 등록합니다.
+
+제거:
+
+```powershell
+.\uninstall.ps1
+```
+
+### Provider 설정
+
+ivLyrics AI Provider 설정에서 `Ruster AI Provider`를 활성화합니다.
+
+권장값:
+
+- API Key(s): ruster 인증을 껐다면 `localhost`, 인증을 켰다면 설정한 ruster API key
+- Base URL: `http://localhost:5000/v1`
+- Model: 모델 목록에서 선택하거나 custom model ID 입력
+
+사용 중에는 ruster가 실행 중이어야 합니다. 이 addon은 ivLyrics와 로컬 ruster backend를 연결만 하며, ruster를 직접 실행하지는 않습니다.
+
+## English
+
 This repository contains an ivLyrics AI Provider addon for the local ruster proxy.
 
-The addon registers one provider in ivLyrics and calls ruster through the OpenAI-compatible API:
+The addon registers `Ruster AI Provider` in ivLyrics and calls ruster through its OpenAI-compatible API.
 
 - Base URL: `http://localhost:5000/v1`
 - Chat endpoint: `/chat/completions`
@@ -17,23 +90,25 @@ Supported ivLyrics features:
 - Lyrics study mode
 - Character pronunciation
 
-## Requirements
+### Requirements
 
 - ivLyrics 4.0.0 or newer
 - ruster running locally with its HTTP server enabled
 - Default ruster address: `http://localhost:5000/v1`
 
-## ivLyrics Marketplace
+### ivLyrics Marketplace
 
-The ivLyrics marketplace discovers public GitHub repositories tagged with the `ivlyrics-addon` topic. This repository is structured for that rule:
+The ivLyrics marketplace discovers public GitHub repositories tagged with the `ivlyrics-addon` topic and reads the root `manifest.json`.
+
+This repository is structured for that rule:
 
 - Root `manifest.json`
 - `addons[0].type` set to `ai`
 - Raw `downloadUrl` pointing to `Addon_AI_Ruster.js`
 
-After the repository is public and indexed by GitHub, search for `Ruster AI Provider` in the ivLyrics marketplace and install it there.
+After GitHub indexes the repository, search for `Ruster AI Provider` in the ivLyrics marketplace and install it there.
 
-## Manual Install
+### Manual Install
 
 Run PowerShell from this repository folder:
 
@@ -55,9 +130,9 @@ To remove it:
 .\uninstall.ps1
 ```
 
-## Provider Settings
+### Provider Settings
 
-In ivLyrics, open AI provider settings and enable `Ruster AI Provider`.
+In ivLyrics, open AI Provider settings and enable `Ruster AI Provider`.
 
 Recommended values:
 
