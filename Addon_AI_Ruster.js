@@ -3,7 +3,7 @@
  * Connects ivLyrics to the local ruster proxy.
  *
  * @author hohofught
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 (() => {
@@ -18,7 +18,7 @@
         description: {
             en: 'Local ruster proxy provider for ivLyrics translation, pronunciation, metadata, TMI, study, and character pronunciation.'
         },
-        version: '1.0.0',
+        version: '1.0.1',
         apiKeyUrl: 'https://github.com/hohofught/ruster/releases/latest',
         supports: {
             translate: true,
@@ -36,26 +36,26 @@
     const REGISTER_RETRY_LIMIT = 100;
 
     const LANGUAGE_DATA = {
-        ko: { name: 'Korean', native: 'Korean' },
-        en: { name: 'English', native: 'English' },
-        ja: { name: 'Japanese', native: 'Japanese' },
-        'zh-CN': { name: 'Simplified Chinese', native: 'Simplified Chinese' },
-        'zh-TW': { name: 'Traditional Chinese', native: 'Traditional Chinese' },
-        es: { name: 'Spanish', native: 'Spanish' },
-        fr: { name: 'French', native: 'French' },
-        de: { name: 'German', native: 'German' },
-        ru: { name: 'Russian', native: 'Russian' },
-        pt: { name: 'Portuguese', native: 'Portuguese' },
-        it: { name: 'Italian', native: 'Italian' },
-        th: { name: 'Thai', native: 'Thai' },
-        vi: { name: 'Vietnamese', native: 'Vietnamese' },
-        id: { name: 'Indonesian', native: 'Indonesian' },
-        ms: { name: 'Malay', native: 'Malay' },
-        hi: { name: 'Hindi', native: 'Hindi' },
-        ar: { name: 'Arabic', native: 'Arabic' },
-        fa: { name: 'Persian', native: 'Persian' },
-        bn: { name: 'Bengali', native: 'Bengali' },
-        sv: { name: 'Swedish', native: 'Swedish' }
+        ko: { name: 'Korean', native: '한국어', phoneticDesc: 'Korean Hangul pronunciation' },
+        en: { name: 'English', native: 'English', phoneticDesc: 'Latin alphabet romanization' },
+        ja: { name: 'Japanese', native: '日本語', phoneticDesc: 'Japanese Katakana pronunciation' },
+        'zh-CN': { name: 'Simplified Chinese', native: '简体中文', phoneticDesc: 'Simplified Chinese pronunciation' },
+        'zh-TW': { name: 'Traditional Chinese', native: '繁體中文', phoneticDesc: 'Traditional Chinese pronunciation' },
+        es: { name: 'Spanish', native: 'Español', phoneticDesc: 'Spanish phonetic spelling' },
+        fr: { name: 'French', native: 'Français', phoneticDesc: 'French phonetic spelling' },
+        de: { name: 'German', native: 'Deutsch', phoneticDesc: 'German phonetic spelling' },
+        ru: { name: 'Russian', native: 'Русский', phoneticDesc: 'Russian Cyrillic pronunciation' },
+        pt: { name: 'Portuguese', native: 'Português', phoneticDesc: 'Portuguese phonetic spelling' },
+        it: { name: 'Italian', native: 'Italiano', phoneticDesc: 'Italian phonetic spelling' },
+        th: { name: 'Thai', native: 'ไทย', phoneticDesc: 'Thai script pronunciation' },
+        vi: { name: 'Vietnamese', native: 'Tiếng Việt', phoneticDesc: 'Vietnamese phonetic spelling' },
+        id: { name: 'Indonesian', native: 'Bahasa Indonesia', phoneticDesc: 'Indonesian phonetic spelling' },
+        ms: { name: 'Malay', native: 'Bahasa Melayu', phoneticDesc: 'Malay phonetic spelling' },
+        hi: { name: 'Hindi', native: 'हिन्दी', phoneticDesc: 'Hindi Devanagari pronunciation' },
+        ar: { name: 'Arabic', native: 'العربية', phoneticDesc: 'Arabic script pronunciation' },
+        fa: { name: 'Persian', native: 'فارسی', phoneticDesc: 'Persian script pronunciation' },
+        bn: { name: 'Bengali', native: 'বাংলা', phoneticDesc: 'Bengali script pronunciation' },
+        sv: { name: 'Swedish', native: 'Svenska', phoneticDesc: 'Swedish phonetic spelling' }
     };
 
     function getSetting(key, defaultValue = null) {
@@ -215,37 +215,37 @@
     function buildTranslationPrompt(text, lang) {
         const langInfo = getLangInfo(lang);
         const lineCount = String(text).split('\n').length;
-        return `You are a lyrics translator. Translate these ${lineCount} lines of song lyrics into ${langInfo.name}.
+        return `You are a lyrics translator. Translate these ${lineCount} lines of song lyrics into ${langInfo.name} (${langInfo.native}).
 
 RULES:
-- Output EXACTLY ${lineCount} lines, one translation per line.
-- Preserve original line breaks.
-- Keep empty lines empty.
-- Keep music symbols and section labels as-is.
-- Do not add line numbers, explanations, markdown, or JSON.
+- Output EXACTLY ${lineCount} lines, one translation per line
+- Keep empty lines as empty
+- Keep symbols like [Chorus], (Yeah), and ♪ as-is
+- Do NOT add numbering, quotes, notes, or explanations
+- Do NOT use markdown or code blocks
+- Return only the translated lines
 
 INPUT:
-${text}
-
-OUTPUT (${lineCount} lines):`;
+${text}`;
     }
 
     function buildPhoneticPrompt(text, lang) {
         const langInfo = getLangInfo(lang);
         const lineCount = String(text).split('\n').length;
-        return `Convert these ${lineCount} lines of lyrics to pronunciation for ${langInfo.name} speakers.
+        return `Convert these ${lineCount} lines of lyrics into pronunciation for ${langInfo.name} speakers.
 
 RULES:
-- Output EXACTLY ${lineCount} lines, one pronunciation per line.
-- Preserve original line breaks.
-- Keep empty lines empty.
-- Do not translate meaning.
-- Do not add line numbers, explanations, markdown, or JSON.
+- Output EXACTLY ${lineCount} lines, one pronunciation per line
+- Keep empty lines as empty
+- Keep symbols like [Chorus], (Yeah), and ♪ as-is
+- Do NOT translate the meaning
+- Do NOT add numbering, quotes, notes, or explanations
+- Do NOT use markdown or code blocks
+- Use ${langInfo.phoneticDesc}
+- Return only the pronunciation lines
 
 INPUT:
-${text}
-
-OUTPUT (${lineCount} lines):`;
+${text}`;
     }
 
     function buildMetadataPrompt(title, artist, lang) {

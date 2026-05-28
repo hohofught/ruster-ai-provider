@@ -3,8 +3,8 @@
     {
       "name": "Ruster AI Provider",
       "type": "ai",
-      "version": "1.0.0",
-      "updated": "2026-05-28",
+      "version": "1.0.1",
+      "updated": "2026-05-29",
       "description": "https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/README.md",
       "githubUrl": "https://github.com/hohofught/ruster-ai-provider",
       "downloadUrl": "https://raw.githubusercontent.com/hohofught/ruster-ai-provider/main/Addon_AI_Ruster.js",

@@ -2,15 +2,15 @@
   "schemaVersion": 2,
   "addons": {
     "Addon_AI_Ruster.js": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "id": "ruster"
     }
   },
   "integrity": {
-    "Addon_AI_Ruster.js": "sha256-fe34fef0ab622b2a7e1ff35389e4abef609c7e735b5dc1a9ec7fa28b7dc9ee29",
+    "Addon_AI_Ruster.js": "sha256-adcd1c41288ed828cb5a95a740ed4f04c3042044362cb70a5ed52299da021048",
     "install.ps1": "sha256-0586782e4856186056273fabfd39448d6dc27fdf6ab326367ab77cf2b44ef00f",
     "uninstall.ps1": "sha256-26d3ec32743b8d088f16cfdc7ad099ddc0fbcd2c4be44fbb3972509043508300",
-    "manifest.json": "sha256-927cf14ea61fbd0165f3e43668f59f246c9109833216694a426c861c5305a074",
+    "manifest.json": "sha256-deb25a6b7aea639900d990953d9060d06ea2d381231cf351671be0cfdcb9854f",
     "README.md": "sha256-3b1853cd347d6b149ad24a70909d9dfabe2ecbb632b3a9c17a5a0ed303e93619"
   }
 }
